@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Button, Form, Card } from "react-bootstrap";
 import "../CSS/App.css";
-import imgSrc from "../Asset/T-shirt10.png";
+import imgSrc from "../Asset/T-shirt12.png";
 
 export default function NextPage() {
   return (
@@ -33,9 +33,7 @@ export default function NextPage() {
           </Col>
           <Col lg={6}>
             <div className="ps-lg-3">
-              <h4 className="title text-dark">
-                Men's Round Neck T-Shirt(Yellow)
-              </h4>
+              <h4 className="title text-dark">Men's Collared T-Shirt(Grey)</h4>
               <div className="d-flex flex-row my-3">
                 <div className="text-warning mb-1 me-2">
                   <i className="fa fa-star"></i>
@@ -47,7 +45,7 @@ export default function NextPage() {
               </div>
 
               <div className="mb-3">
-                <span className="h5">$19.99</span>
+                <span className="h5">$40.00</span>
                 <span className="text-muted">/per piece</span>
               </div>
 
@@ -62,7 +60,7 @@ export default function NextPage() {
                 <dd className="col-9">Regular</dd>
 
                 <dt className="col-3">Color</dt>
-                <dd className="col-9">Yellow</dd>
+                <dd className="col-9">Grey</dd>
 
                 <dt className="col-3">Material</dt>
                 <dd className="col-9">Cotton</dd>
