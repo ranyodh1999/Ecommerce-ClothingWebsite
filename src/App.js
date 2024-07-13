@@ -1,29 +1,40 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 import Navigation from "./Components/Navigation";
-import Home from "./Components/Home";
-import Detail1 from "./Components/detail-page/Detail1";
-import Detail2 from "./Components/detail-page/Detail2";
-import Detail3 from "./Components/detail-page/Detail3";
-import Detail4 from "./Components/detail-page/Detail4";
-import Detail5 from "./Components/detail-page/Detail5";
-import Detail6 from "./Components/detail-page/Detail6";
-import Detail7 from "./Components/detail-page/Detail7";
-import Detail8 from "./Components/detail-page/Detail8";
-import Detail9 from "./Components/detail-page/Detail9";
-import Detail10 from "./Components/detail-page/Detail10";
-import Detail11 from "./Components/detail-page/Detail11";
-import Detail12 from "./Components/detail-page/Detail12";
-import Detail13 from "./Components/detail-page/Detail13";
-import Detail14 from "./Components/detail-page/Detail14";
-import Detail15 from "./Components/detail-page/Detail15";
-import Detail16 from "./Components/detail-page/Detail16";
+import Home from "./Shopping/Home";
+import Detail1 from "./detail-page/Detail1";
+import Detail2 from "./detail-page/Detail2";
+import Detail3 from "./detail-page/Detail3";
+import Detail4 from "./detail-page/Detail4";
+import Detail5 from "./detail-page/Detail5";
+import Detail6 from "./detail-page/Detail6";
+import Detail7 from "./detail-page/Detail7";
+import Detail8 from "./detail-page/Detail8";
+import Detail9 from "./detail-page/Detail9";
+import Detail10 from "./detail-page/Detail10";
+import Detail11 from "./detail-page/Detail11";
+import Detail12 from "./detail-page/Detail12";
+import Detail13 from "./detail-page/Detail13";
+import Detail14 from "./detail-page/Detail14";
+import Detail15 from "./detail-page/Detail15";
+import Detail16 from "./detail-page/Detail16";
 import Footer from "./Components/Footer";
+import Signup from "./Components/Signup";
+import Login from "./Components/Login";
 
 function App() {
+  const location = useLocation();
+  const hideHeaderFooter =
+    location.pathname === "/signup" || location.pathname === "/login";
+
   return (
     <>
-      <Navigation />
+      {!hideHeaderFooter && <Navigation />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/detail-page1" element={<Detail1 />} />
@@ -42,8 +53,10 @@ function App() {
         <Route path="/detail-page14" element={<Detail14 />} />
         <Route path="/detail-page15" element={<Detail15 />} />
         <Route path="/detail-page16" element={<Detail16 />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />{" "}
       </Routes>
-      <Footer />
+      {!hideHeaderFooter && <Footer />}
     </>
   );
 }

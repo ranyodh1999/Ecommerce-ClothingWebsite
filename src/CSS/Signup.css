@@ -1,0 +1,36 @@
+.signup-page {
+    background-size: cover;
+    background-position: center;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;  
+    align-items: center;      
+    min-height: 100vh;
+    margin: 0;  
+  
+    background-image: url('C:\Users\JENISH PATEL\my-project\public\background.jpeg');
+    background-image: url('../Asset/background.jpg');
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;     
+    width: 100%;
+    
+  }
+  
+  .card-signup {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 1000px;
+    max-width: 600px; 
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .btn-block {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 10px;
+  }
