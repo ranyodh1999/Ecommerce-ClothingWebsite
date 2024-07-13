@@ -5,26 +5,25 @@ import Container from "react-bootstrap/Container";
 import Image from "react-bootstrap/Image";
 import Row from "react-bootstrap/Row";
 
-import imgSrc1 from "./Asset/T-shirt1.png";
-import imgSrc2 from "./Asset/T-shirt2.png";
-import imgSrc3 from "./Asset/T-shirt3.png";
-import imgSrc4 from "./Asset/T-shirt4.png";
-import imgSrc5 from "./Asset/T-shirt5.png";
-import imgSrc6 from "./Asset/T-shirt6.png";
-import imgSrc7 from "./Asset/T-shirt7.png";
-import imgSrc8 from "./Asset/T-shirt8.png";
-import imgSrc9 from "./Asset/T-shirt9.png";
-import imgSrc10 from "./Asset/T-shirt10.png";
-import imgSrc11 from "./Asset/T-shirt11.png";
-import imgSrc12 from "./Asset/T-shirt12.png";
-import imgSrc13 from "./Asset/T-shirt13.png";
-import imgSrc14 from "./Asset/T-shirt14.png";
-import imgSrc15 from "./Asset/T-shirt15.png";
-import imgSrc16 from "./Asset/T-shirt16.png";
-import imgSrch from "./Asset/Header.jpg";
+import imgSrc1 from "../Asset/T-shirt1.png";
+import imgSrc2 from "../Asset/T-shirt2.png";
+import imgSrc3 from "../Asset/T-shirt3.png";
+import imgSrc4 from "../Asset/T-shirt4.png";
+import imgSrc5 from "../Asset/T-shirt5.png";
+import imgSrc6 from "../Asset/T-shirt6.png";
+import imgSrc7 from "../Asset/T-shirt7.png";
+import imgSrc8 from "../Asset/T-shirt8.png";
+import imgSrc9 from "../Asset/T-shirt9.png";
+import imgSrc10 from "../Asset/T-shirt10.png";
+import imgSrc11 from "../Asset/T-shirt11.png";
+import imgSrc12 from "../Asset/T-shirt12.png";
+import imgSrc13 from "../Asset/T-shirt13.png";
+import imgSrc14 from "../Asset/T-shirt14.png";
+import imgSrc15 from "../Asset/T-shirt15.png";
+import imgSrc16 from "../Asset/T-shirt16.png";
+import imgSrch from "../Asset/Header.jpg";
 import Card from "react-bootstrap/Card";
-
-import "./CSS/App.css";
+import "../CSS/App.css";
 
 function Main() {
   return (
