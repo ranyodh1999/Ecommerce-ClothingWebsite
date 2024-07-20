@@ -1,67 +1,76 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../Context/AuthContext";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import "../CSS/App.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faUserCircle,
+  faShoppingCart,
+} from "@fortawesome/free-solid-svg-icons";
+
 function Navigation() {
+  const { user, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/Login");
+  };
+
+  const getInitials = (name) => {
+    if (!name) return "";
+    const initials = name
+      .split(" ")
+      .map((n) => n[0])
+      .join("");
+    return initials.toUpperCase();
+  };
+
   return (
     <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
-      {" "}
       <Container>
-        {" "}
-        <Navbar.Brand href="#home">Home</Navbar.Brand>{" "}
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />{" "}
+        <Navbar.Brand as={Link} to="/home">
+          Home
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          {" "}
-          <Nav className="me-auto">
+          <Nav className="ms-auto">
             {" "}
-            <Nav.Link href="#features">Features</Nav.Link>{" "}
-            <Nav.Link href="#pricing">Pricing</Nav.Link>{" "}
-            <NavDropdown title="Dropdown" id="collapsible-nav-dropdown">
-              {" "}
-              <NavDropdown.Item href="#action/3.1">
-                Action
-              </NavDropdown.Item>{" "}
-              <NavDropdown.Item href="#action/3.2">
-                {" "}
-                Another action{" "}
-              </NavDropdown.Item>{" "}
-              <NavDropdown.Item href="#action/3.3">
-                Something
-              </NavDropdown.Item>{" "}
-              <NavDropdown.Divider />{" "}
-              <NavDropdown.Item href="#action/3.4">
-                {" "}
-                Separated link{" "}
-              </NavDropdown.Item>{" "}
-            </NavDropdown>{" "}
-          </Nav>{" "}
-          <Nav>
-            {" "}
-            <Nav.Link href="Signup">SignUp</Nav.Link>{" "}
-            <Nav.Link eventKey={2} href="Login">
-              {" "}
-              Login{" "}
-            </Nav.Link>{" "}
-            <Nav.Link eventKey={2} href="Cart">
-              {" "}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-cart"
-                viewBox="0 0 16 16"
-              >
-                {" "}
-                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />{" "}
-              </svg>{" "}
-            </Nav.Link>{" "}
-          </Nav>{" "}
-        </Navbar.Collapse>{" "}
-      </Container>{" "}
+            {user && (
+              <>
+                <Nav.Link as={Link} to="/cart">
+                  <FontAwesomeIcon icon={faShoppingCart} size="lg" />
+                </Nav.Link>
+                <NavDropdown
+                  title={
+                    <span>
+                      <FontAwesomeIcon icon={faUserCircle} size="lg" />{" "}
+                      {getInitials(user.name)}
+                    </span>
+                  }
+                  id="profile-nav-dropdown"
+                  alignRight
+                >
+                  <NavDropdown.Item as={Link} to="#profile">
+                    Profile
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="#settings">
+                    Settings
+                  </NavDropdown.Item>
+                  <NavDropdown.Item onClick={handleLogout}>
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              </>
+            )}
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
     </Navbar>
   );
 }
+
 export default Navigation;
