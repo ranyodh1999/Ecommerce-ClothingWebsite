@@ -5,6 +5,10 @@ import {
   Routes,
   useLocation,
 } from "react-router-dom";
+import { ShopContextProvider } from "./Context/shopContext";
+import { AuthProvider } from "./Context/AuthContext";
+
+import Cart from "./Cart/Cart";
 import Navigation from "./Components/Navigation";
 import Home from "./Shopping/Home";
 import Detail1 from "./detail-page/Detail1";
@@ -30,13 +34,13 @@ import Login from "./Components/Login";
 function App() {
   const location = useLocation();
   const hideHeaderFooter =
-    location.pathname === "/signup" || location.pathname === "/login";
+    location.pathname === "/signup" || location.pathname === "/login"; // Corrected path to '/login'
 
   return (
     <>
       {!hideHeaderFooter && <Navigation />}
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/detail-page1" element={<Detail1 />} />
         <Route path="/detail-page2" element={<Detail2 />} />
         <Route path="/detail-page3" element={<Detail3 />} />
@@ -53,7 +57,8 @@ function App() {
         <Route path="/detail-page14" element={<Detail14 />} />
         <Route path="/detail-page15" element={<Detail15 />} />
         <Route path="/detail-page16" element={<Detail16 />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/Cart" element={<Cart />} />
+        <Route path="/" element={<Signup />} />
         <Route path="/login" element={<Login />} />{" "}
       </Routes>
       {!hideHeaderFooter && <Footer />}
@@ -63,9 +68,13 @@ function App() {
 
 function AppWrapper() {
   return (
-    <Router>
-      <App />
-    </Router>
+    <AuthProvider>
+      <ShopContextProvider>
+        <Router>
+          <App />
+        </Router>
+      </ShopContextProvider>
+    </AuthProvider>
   );
 }
 
