@@ -1,9 +1,18 @@
-import React from "react";
-import { Container, Row, Col, Button, Form, Card } from "react-bootstrap";
-import "../CSS/App.css";
+import React, { useContext } from "react";
+
+import { Container, Row, Col, Button } from "react-bootstrap";
+import { ShopContext } from "../Context/shopContext";
 import imgSrc from "../Asset/T-shirt14.png";
 
 export default function NextPage() {
+  const { addToCart, cartItems } = useContext(ShopContext);
+
+  const productId = 14;
+
+  const handleAddToCart = () => {
+    addToCart(productId);
+  };
+
   return (
     <section className="py-5">
       <Container>
@@ -74,29 +83,17 @@ export default function NextPage() {
               <hr />
 
               <div className="row mb-4">
-                <Col md={5} xs={6}>
-                  <label className="mb-2">Size</label>
-                  <Form.Select
-                    className="border border-secondary"
+                <Col md={6} xs={6} className="d-flex align-items-end">
+                  <Button
+                    className="w-100"
+                    onClick={handleAddToCart}
+                    variant="outline-primary"
+                    size="md"
                     style={{ height: "38px" }}
                   >
-                    <option>Small</option>
-                    <option>Medium</option>
-                    <option>Large</option>
-                  </Form.Select>
-                </Col>
-
-                <Col md={6} xs={6} className="d-flex align-items-end">
-                  <Card className="ms-auto" style={{ width: "100%" }}>
-                    <Button
-                      variant="outline-primary"
-                      size="md"
-                      className="w-100"
-                      style={{ height: "38px" }}
-                    >
-                      Add to shopping cart
-                    </Button>
-                  </Card>
+                    Add To Cart{" "}
+                    {cartItems[productId] > 0 && <> ({cartItems[productId]})</>}
+                  </Button>
                 </Col>
               </div>
             </div>
