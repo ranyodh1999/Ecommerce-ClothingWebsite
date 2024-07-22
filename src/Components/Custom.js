@@ -20,7 +20,7 @@ function CustomRequest() {
     formData.append("description", description);
 
     try {
-      const res = await axios.post("https://webhook.site/abac9774-502b-44f6-a98d-88bb1afaba52", formData, {
+      const res = await axios.post("http://localhost:3001/api/users/custom", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
