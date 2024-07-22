@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
+import { ThemeContext } from "../ThemeContext";  // 新增
 import "./Custom.css"; // Ensure the path is correct
 
 function CustomRequest() {
@@ -8,6 +9,7 @@ function CustomRequest() {
   const [phone, setPhone] = useState("");
   const [photo, setPhoto] = useState(null);
   const [description, setDescription] = useState("");
+  const { theme } = useContext(ThemeContext);  // 新增
 
   const handleSubmit = async (e) => {
     e.preventDefault();
