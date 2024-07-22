@@ -4,6 +4,7 @@ import { Container, Row, Col, Image, Card } from "react-bootstrap";
 import { ShopContext } from "../Context/shopContext";
 import { Products } from "./Products";
 import "../CSS/App.css";
+
 import headerImage from "../Asset/Header.jpg";
 const Home = () => {
   const { addToCart, cartItems } = useContext(ShopContext);
@@ -23,7 +24,7 @@ const Home = () => {
                   width={300}
                   height={325}
                   className="image"
-                  alt={product.productName} // Adding alt text for accessibility
+                  alt={product.productName}
                 />
                 <p>
                   {product.productName} <br /> Price: ${product.price}

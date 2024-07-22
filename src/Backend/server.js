@@ -22,6 +22,7 @@ mongoose
   });
 
 app.use("/api/users", require("./routes/users"));
+app.use("/api/checkout", require("./routes/orders"));
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {

@@ -1,333 +1,218 @@
-import React, { useState } from 'react';
-import './CSS/Checkout.css';
-
-const countryStateData = {
-  'United States': [
-    'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 
-    'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 
-    'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 
-    'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 
-    'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 
-    'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 
-    'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
-  ],
-  Canada: [
-    'Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland and Labrador', 'Nova Scotia', 
-    'Ontario', 'Prince Edward Island', 'Quebec', 'Saskatchewan'
-  ]
-};
-
-const defaultCartItems = [
-  { name: 'Item 1', quantity: 1, price: 29.99 },
-  { name: 'Item 2', quantity: 2, price: 19.99 }
-];
-const defaultTotalPrice = defaultCartItems.reduce((total, item) => total + item.quantity * item.price, 0);
+import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
+import "../CSS/Checkout.css";
 
 function Checkout() {
-  const [cartItems] = useState(defaultCartItems);
-  const [totalPrice] = useState(defaultTotalPrice);
-  const [country, setCountry] = useState('');
-  const [state, setState] = useState('');
-  const [states, setStates] = useState([]);
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [confirmEmail, setConfirmEmail] = useState('');
-  const [address, setAddress] = useState('');
-  const [postalCode, setPostalCode] = useState('');
-  const [ccName, setCcName] = useState('');
-  const [ccNumber, setCcNumber] = useState('');
-  const [ccExpiration, setCcExpiration] = useState('');
-  const [ccCvv, setCcCvv] = useState('');
+  const location = useLocation();
+  const { totalAmount, productIds } = location.state || {};
 
-  const [errors, setErrors] = useState({});
-
-  const handleCountryChange = (e) => {
-    const selectedCountry = e.target.value;
-    setCountry(selectedCountry);
-    setStates(countryStateData[selectedCountry] || []);
-    setState('');
-  };
-
-  const handlePhoneNumberChange = (e) => {
-    const value = e.target.value;
-    setPhoneNumber(value.replace(/[^0-9]/g, ''));
-  };
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [contact, setContact] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [province, setProvince] = useState("");
+  const [zipCode, setZipCode] = useState("");
+  const [cardNumber, setCardNumber] = useState("");
+  const [expiryDate, setExpiryDate] = useState("");
+  const [cvv, setCvv] = useState("");
 
   const validateForm = () => {
-    let formErrors = {};
-    if (!firstName) formErrors.firstName = 'Valid first name is required.';
-    if (!lastName) formErrors.lastName = 'Valid last name is required.';
-    if (!phoneNumber) formErrors.phoneNumber = 'Your phone number is required.';
-    if (!email) formErrors.email = 'Please enter a valid email address for shipping updates.';
-    if (email !== confirmEmail) formErrors.confirmEmail = 'The email address did not match.';
-    if (!address) formErrors.address = 'Please enter your shipping address.';
-    if (!country) formErrors.country = 'Please select a valid country.';
-    if (!state) formErrors.state = 'Please provide a valid state.';
-    if (!postalCode) formErrors.postalCode = 'Postal code required.';
-    if (!ccName) formErrors.ccName = 'Name on card is required';
-    if (!ccNumber) formErrors.ccNumber = 'Credit card number is required';
-    if (!ccExpiration) formErrors.ccExpiration = 'Expiration date required';
-    if (!ccCvv) formErrors.ccCvv = 'Security code required';
-    setErrors(formErrors);
-    return Object.keys(formErrors).length === 0;
+    const cvvPattern = /^\d{3}$/;
+    const cardNumberPattern = /^\d{16}$/;
+    const expiryDatePattern = /^(0[1-9]|1[0-2])\/\d{2}$/;
+    const zipCodePattern = /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/;
+
+    if (!cvvPattern.test(cvv)) {
+      alert("Invalid CVV. It should be 3 digits.");
+      return false;
+    }
+
+    if (!cardNumberPattern.test(cardNumber)) {
+      alert("Invalid card number. It should be 16 digits.");
+      return false;
+    }
+
+    if (!expiryDatePattern.test(expiryDate)) {
+      alert("Invalid expiry date. Use MM/YY format.");
+      return false;
+    }
+
+    if (address.trim() === "") {
+      alert("Address cannot be empty.");
+      return false;
+    }
+
+    if (city.trim() === "") {
+      alert("City cannot be empty.");
+      return false;
+    }
+
+    if (province.trim() === "") {
+      alert("Province cannot be empty.");
+      return false;
+    }
+
+    if (!zipCodePattern.test(zipCode)) {
+      alert(
+        "Invalid zip code. It should be a 6-character alphanumeric format."
+      );
+      return false;
+    }
+
+    return true;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      // 处理表单提交
+    if (!validateForm()) return;
+
+    try {
+      const res = await axios.post("http://localhost:3001/api/checkout", {
+        productIds,
+        name,
+        email,
+        contact,
+        address,
+        city,
+        province,
+        zipCode,
+        cardNumber,
+        expiryDate,
+        cvv,
+        totalAmount,
+      });
+      alert(res.data.msg);
+    } catch (err) {
+      console.error(err);
+      alert("Error during checkout");
     }
   };
 
   return (
-    <div className="checkout-container">
-      <div className="row">
-        <div className="col-main">
-          <h4 className="section-title">Shipping detail</h4>
-          <form className="form" noValidate onSubmit={handleSubmit}>
-            <div className="row">
-              <div className="col-half">
-                <label htmlFor="firstName">First name</label>
-                <input 
-                  type="text" 
-                  className="form-input" 
-                  id="firstName" 
-                  placeholder="Enter your First name" 
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  required 
+    <div className="checkout-page">
+      <div className="Checkout">
+        <div className="card-checkout">
+          <div className="card-body">
+            <h2 className="card-title text-center">Checkout</h2>
+            <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="name">Name:</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="name"
+                  placeholder="Enter your name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                 />
-                {errors.firstName && <div className="feedback">{errors.firstName}</div>}
               </div>
-              <div className="col-half">
-                <label htmlFor="lastName">Last name</label>
-                <input 
-                  type="text" 
-                  className="form-input" 
-                  id="lastName" 
-                  placeholder="Enter your Last name" 
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  required 
+              <div className="form-group">
+                <label htmlFor="email">Email:</label>
+                <input
+                  type="email"
+                  className="form-control"
+                  id="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
-                {errors.lastName && <div className="feedback">{errors.lastName}</div>}
               </div>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="phoneNumber">Phone number</label>
-              <input 
-                type="text" 
-                className="form-input" 
-                id="phoneNumber" 
-                placeholder="Enter your phone number" 
-                value={phoneNumber}
-                onChange={handlePhoneNumberChange}
-                required 
-              />
-              {errors.phoneNumber && <div className="feedback">{errors.phoneNumber}</div>}
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="email">Email </label>
-              <input 
-                type="email" 
-                className="form-input" 
-                id="email" 
-                placeholder="Enter your email address" 
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              {errors.email && <div className="feedback">{errors.email}</div>}
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="confirmEmail">Confirm Email </label>
-              <input 
-                type="email" 
-                className="form-input" 
-                id="confirmEmail" 
-                placeholder="Confirm your email address" 
-                value={confirmEmail}
-                onChange={(e) => setConfirmEmail(e.target.value)}
-              />
-              {errors.confirmEmail && <div className="feedback">{errors.confirmEmail}</div>}
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="address">Address</label>
-              <input 
-                type="text" 
-                className="form-input" 
-                id="address" 
-                placeholder="Enter your shipping address" 
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                required 
-              />
-              {errors.address && <div className="feedback">{errors.address}</div>}
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="address2">Address 2 <span className="text-muted">(Optional)</span></label>
-              <input 
-                type="text" 
-                className="form-input" 
-                id="address2" 
-                placeholder="Apartment or suite" 
-              />
-            </div>
-
-            <div className="row">
-              <div className="col-5">
-                <label htmlFor="country">Country</label>
-                <select 
-                  className="form-select" 
-                  id="country" 
-                  value={country} 
-                  onChange={handleCountryChange} 
-                  required
-                >
-                  <option value="">Choose...</option>
-                  {Object.keys(countryStateData).map((country) => (
-                    <option key={country} value={country}>
-                      {country}
-                    </option>
-                  ))}
-                </select>
-                {errors.country && <div className="feedback">{errors.country}</div>}
-              </div>
-              <div className="col-4">
-                <label htmlFor="state">State</label>
-                <select 
-                  className="form-select" 
-                  id="state" 
-                  value={state} 
-                  onChange={(e) => setState(e.target.value)} 
-                  required
-                >
-                  <option value="">Choose...</option>
-                  {states.map((state) => (
-                    <option key={state} value={state}>
-                      {state}
-                    </option>
-                  ))}
-                </select>
-                {errors.state && <div className="feedback">{errors.state}</div>}
-              </div>
-              <div className="col-3">
-                <label htmlFor="zip">Postal code</label>
-                <input 
-                  type="text" 
-                  className="form-input" 
-                  id="zip" 
-                  placeholder="Postal code" 
-                  value={postalCode}
-                  onChange={(e) => setPostalCode(e.target.value)}
-                  required 
+              <div className="form-group">
+                <label htmlFor="contact">Contact:</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="contact"
+                  placeholder="Enter your contact number"
+                  value={contact}
+                  onChange={(e) => setContact(e.target.value)}
                 />
-                {errors.postalCode && <div className="feedback">{errors.postalCode}</div>}
               </div>
-            </div>
-            <hr className="divider" />
-            <div className="custom-control">
-              <input type="checkbox" className="custom-checkbox" id="same-address" />
-              <label className="custom-label" htmlFor="same-address">
-                Shipping address is the same as my billing address
-              </label>
-            </div>
-            <div className="custom-control">
-              <input type="checkbox" className="custom-checkbox" id="save-info" />
-              <label className="custom-label" htmlFor="save-info">
-                Save this information for next time
-              </label>
-            </div>
-            <hr className="divider" />
-
-            <h4 className="section-title">Payment</h4>
-            <p>Credit card only</p>
-            <div className="row">
-              <div className="col-half">
-                <label htmlFor="cc-name">Name on card</label>
-                <input 
-                  type="text" 
-                  className="form-input" 
-                  id="cc-name" 
-                  placeholder="" 
-                  value={ccName}
-                  onChange={(e) => setCcName(e.target.value)}
-                  required 
+              <div className="form-group">
+                <label htmlFor="address">Address:</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="address"
+                  placeholder="Enter your address"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
                 />
-                <small className="small-text">Full name as displayed on card</small>
-                {errors.ccName && <div className="feedback">{errors.ccName}</div>}
               </div>
-              <div className="col-half">
-                <label htmlFor="cc-number">Credit card number</label>
-                <input 
-                  type="text" 
-                  className="form-input" 
-                  id="cc-number" 
-                  placeholder="" 
-                  value={ccNumber}
-                  onChange={(e) => setCcNumber(e.target.value)}
-                  required 
+              <div className="form-group">
+                <label htmlFor="city">City:</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="city"
+                  placeholder="Enter your city"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
                 />
-                {errors.ccNumber && <div className="feedback">{errors.ccNumber}</div>}
               </div>
-            </div>
-            <div className="row">
-              <div className="col-half">
-                <label htmlFor="cc-expiration">Expiration</label>
-                <input 
-                  type="text" 
-                  className="form-input small" 
-                  id="cc-expiration" 
-                  placeholder="" 
-                  value={ccExpiration}
-                  onChange={(e) => setCcExpiration(e.target.value)}
-                  required 
+              <div className="form-group">
+                <label htmlFor="province">Province:</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="province"
+                  placeholder="Enter your province"
+                  value={province}
+                  onChange={(e) => setProvince(e.target.value)}
                 />
-                {errors.ccExpiration && <div className="feedback">{errors.ccExpiration}</div>}
               </div>
-              <div className="col-half">
-                <label htmlFor="cc-cvv">CVV</label>
-                <input 
-                  type="text" 
-                  className="form-input small" 
-                  id="cc-cvv" 
-                  placeholder="" 
-                  value={ccCvv}
-                  onChange={(e) => setCcCvv(e.target.value)}
-                  required 
+              <div className="form-group">
+                <label htmlFor="zipCode">Zip Code:</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="zipCode"
+                  placeholder="Enter your zip code"
+                  value={zipCode}
+                  onChange={(e) => setZipCode(e.target.value)}
                 />
-                {errors.ccCvv && <div className="feedback">{errors.ccCvv}</div>}
               </div>
-            </div>
-            <hr className="divider" />
-            <button className="btn-submit" type="submit">
-              Continue to checkout
-            </button>
-          </form>
-        </div>
-        <div className="col-aside">
-          <h4 className="cart-title">Your cart</h4>
-          <ul className="cart-list">
-            {cartItems.map((item, index) => (
-              <li key={index} className="cart-item">
-                <div>
-                  <h6 className="item-name">{item.name}</h6>
-                  <small className="item-quantity">Quantity: {item.quantity}</small>
-                </div>
-                <span className="item-price">${item.price}</span>
-              </li>
-            ))}
-            <li className="cart-total">
-              <span>Total (USD)</span>
-              <strong>${totalPrice}</strong>
-            </li>
-          </ul>
+              <div className="form-group">
+                <label htmlFor="cardNumber">Card Number:</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="cardNumber"
+                  placeholder="Enter your card number"
+                  value={cardNumber}
+                  onChange={(e) => setCardNumber(e.target.value)}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="expiryDate">Expiry Date:</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="expiryDate"
+                  placeholder="MM/YY"
+                  value={expiryDate}
+                  onChange={(e) => setExpiryDate(e.target.value)}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="cvv">CVV:</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="cvv"
+                  placeholder="Enter CVV"
+                  value={cvv}
+                  onChange={(e) => setCvv(e.target.value)}
+                />
+              </div>
+              <p>Total Amount: ${totalAmount}</p>
+              <button type="submit" className="btn btn-success btn-block">
+                Checkout
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>

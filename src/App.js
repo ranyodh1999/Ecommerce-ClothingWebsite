@@ -30,6 +30,7 @@ import Detail16 from "./detail-page/Detail16";
 import Footer from "./Components/Footer";
 import Signup from "./Components/Signup";
 import Login from "./Components/Login";
+import Checkout from "./Components/Checkout";
 
 function App() {
   const location = useLocation();
@@ -56,6 +57,7 @@ function App() {
         <Route path="/detail-page13" element={<Detail13 />} />
         <Route path="/detail-page14" element={<Detail14 />} />
         <Route path="/detail-page15" element={<Detail15 />} />
+        <Route path="/checkout" element={<Checkout />} />
         <Route path="/detail-page16" element={<Detail16 />} />
         <Route path="/Cart" element={<Cart />} />
         <Route path="/" element={<Signup />} />

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "../CSS/Signup.css"; // Ensure the path is correct
-
+import "../CSS/Signup.css";
 function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -84,7 +83,7 @@ function Signup() {
             </form>
             <p className="text-center mt-3">
               Already have an account?{" "}
-              <a href="Login" className="custom-link">
+              <a href="login" className="custom-link">
                 Login
               </a>
             </p>

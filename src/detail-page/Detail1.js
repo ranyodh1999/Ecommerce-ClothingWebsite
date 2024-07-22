@@ -19,31 +19,22 @@ export default function NextPage() {
         <Row className="gx-5">
           <Col lg={6}>
             <div className="border rounded-4 mb-3 d-flex justify-content-center">
-              <a
-                data-fslightbox="mygallery"
-                className="rounded-4"
-                target="_blank"
-                data-type="image"
-                href={imgSrc}
-                rel="noreferrer"
-              >
-                <img
-                  style={{
-                    maxWidth: "100%",
-                    maxHeight: "100vh",
-                    margin: "auto",
-                  }}
-                  className="rounded-4 fit"
-                  src={imgSrc}
-                  alt="Product"
-                />
-              </a>
+              <img
+                style={{
+                  maxWidth: "100%",
+                  maxHeight: "100vh",
+                  margin: "auto",
+                }}
+                className="rounded-4 fit"
+                src={imgSrc}
+                alt="Product"
+              />
             </div>
           </Col>
           <Col lg={6}>
             <div className="ps-lg-3">
               <h4 className="title text-dark">
-                Men's Round Neck T-Shirt(Light Blue)
+                Men's Round Neck T-Shirt (Light Blue)
               </h4>
               <div className="d-flex flex-row my-3">
                 <div className="text-warning mb-1 me-2">
@@ -83,7 +74,11 @@ export default function NextPage() {
               <hr />
 
               <div className="row mb-4">
-                <Col md={6} xs={6} className="d-flex align-items-end">
+                <Col
+                  md={7}
+                  xs={12}
+                  className="d-flex align-items-center justify-content-md-end"
+                >
                   <Button
                     className="w-100"
                     onClick={handleAddToCart}
