@@ -7,6 +7,8 @@ import {
 } from "react-router-dom";
 import { ShopContextProvider } from "./Context/shopContext";
 import { AuthProvider } from "./Context/AuthContext";
+import { ThemeProvider } from "./ThemeContext";
+import "./styles.css";  // 全局引入 styles.css
 
 import Cart from "./Cart/Cart";
 import Navigation from "./Components/Navigation";
@@ -30,7 +32,6 @@ import Detail16 from "./detail-page/Detail16";
 import Footer from "./Components/Footer";
 import Signup from "./Components/Signup";
 import Login from "./Components/Login";
-import Checkout from "./Components/Checkout";
 
 function App() {
   const location = useLocation();
@@ -57,7 +58,6 @@ function App() {
         <Route path="/detail-page13" element={<Detail13 />} />
         <Route path="/detail-page14" element={<Detail14 />} />
         <Route path="/detail-page15" element={<Detail15 />} />
-        <Route path="/checkout" element={<Checkout />} />
         <Route path="/detail-page16" element={<Detail16 />} />
         <Route path="/Cart" element={<Cart />} />
         <Route path="/" element={<Signup />} />
@@ -72,9 +72,11 @@ function AppWrapper() {
   return (
     <AuthProvider>
       <ShopContextProvider>
-        <Router>
-          <App />
-        </Router>
+        <ThemeProvider>
+          <Router>
+            <App />
+          </Router>
+        </ThemeProvider>
       </ShopContextProvider>
     </AuthProvider>
   );
