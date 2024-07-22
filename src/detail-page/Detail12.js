@@ -76,6 +76,8 @@ export default function NextPage() {
 
                 <dt className="col-3">Brand</dt>
                 <dd className="col-9">Generic</dd>
+                <dt className="col-3">SKU</dt>
+                <dd className="col-9">12 </dd>
               </div>
 
               <hr />
