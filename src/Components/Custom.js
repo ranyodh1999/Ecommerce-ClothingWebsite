@@ -1,143 +1,105 @@
-/* files name are same as getting an error to save it as customer and importing */
-/*It's Custom instead of Checkout*/ 
+import React, { useState } from "react";
+import axios from "axios";
+import "./Custom.css"; // Ensure the path is correct
 
-import React, { useState } from 'react';
-import './Checkout.css';
+function CustomRequest() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [photo, setPhoto] = useState(null);
+  const [description, setDescription] = useState("");
 
-function Checkout() {
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [name, setName] = useState('');
-  const [sku, setSku] = useState('');
-  const [email, setEmail] = useState('');
-  const [description, setDescription] = useState('');
-  const [images, setImages] = useState([]); // State for storing uploaded image files
-
-  const [errors, setErrors] = useState({});
-
-  const handlePhoneNumberChange = (e) => {
-    const value = e.target.value;
-    setPhoneNumber(value.replace(/[^0-9]/g, ''));
-  };
-
-  const validateForm = () => {
-    let formErrors = {};
-    if (!name) formErrors.name = 'Name is required.';
-    if (!sku) formErrors.sku = 'SKU is required.';
-    if (!phoneNumber) formErrors.phoneNumber = 'Your phone number is required.';
-    if (!email) formErrors.email = 'Please enter a valid email address for shipping updates.';
-    setErrors(formErrors);
-    return Object.keys(formErrors).length === 0;
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      console.log("Form submitted with:", { name, sku, phoneNumber, email, description, images });
-      // Handle form submission here
+
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("phone", phone);
+    formData.append("photo", photo);
+    formData.append("description", description);
+
+    try {
+      const res = await axios.post("https://webhook.site/abac9774-502b-44f6-a98d-88bb1afaba52", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      alert(res.data.msg);
+    } catch (err) {
+      console.error(err);
+      alert("Error during custom request submission");
     }
   };
 
-  const handleImageUpload = (e) => {
-    const files = Array.from(e.target.files);
-    const newImages = files.slice(0, 3 - images.length); // Limit to 3 images
-    setImages([...images, ...newImages]);
-  };
-
-  const handleImageDelete = (index) => {
-    setImages(images.filter((_, i) => i !== index));
-  };
-
   return (
-    <div className="checkout-container">
-      <h4 className="section-title">Custom T-shirt Request</h4>
-      <form className="form" noValidate onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            className="form-input"
-            id="name"
-            placeholder="Enter your Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-          {errors.name && <div className="feedback">{errors.name}</div>}
+    <div className="custom-request-page">
+      <div className="CustomRequest">
+        <div className="card-request">
+          <div className="card-body">
+            <h2 className="card-title text-center">Custom Request</h2>
+            <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="name">Name:</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="name"
+                  placeholder="Enter your name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="email">Email:</label>
+                <input
+                  type="email"
+                  className="form-control"
+                  id="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="phone">Phone Number:</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="phone"
+                  placeholder="Enter your phone number"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="photo">Photo:</label>
+                <input
+                  type="file"
+                  className="form-control"
+                  id="photo"
+                  onChange={(e) => setPhoto(e.target.files[0])}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="description">Description:</label>
+                <textarea
+                  className="form-control"
+                  id="description"
+                  placeholder="Enter the description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                ></textarea>
+              </div>
+              <button type="submit" className="btn btn-success btn-block">
+                Submit Request
+              </button>
+            </form>
+          </div>
         </div>
-        <div className="form-group">
-          <label htmlFor="sku">SKU (Stock Keeping Unit)</label>
-          <input
-            type="text"
-            className="form-input"
-            id="sku"
-            placeholder="Enter SKU number"
-            value={sku}
-            onChange={(e) => setSku(e.target.value)}
-            required
-          />
-          {errors.sku && <div className="feedback">{errors.sku}</div>}
-        </div>
-        <div className="form-group">
-          <label htmlFor="phoneNumber">Phone Number</label>
-          <input
-            type="text"
-            className="form-input"
-            id="phoneNumber"
-            placeholder="Enter your Phone Number"
-            value={phoneNumber}
-            onChange={handlePhoneNumberChange}
-            required
-          />
-          {errors.phoneNumber && <div className="feedback">{errors.phoneNumber}</div>}
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            className="form-input"
-            id="email"
-            placeholder="Enter your Email Address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          {errors.email && <div className="feedback">{errors.email}</div>}
-        </div>
-        <div className="form-group">
-          <label htmlFor="description">Description (Max 5000 characters)</label>
-          <textarea
-            className="form-input"
-            id="description"
-            placeholder="Enter your description : Like size, units, colour, 'LOGO', Special request"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            maxLength={5000}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="image">Upload Image</label>
-          <input
-            type="file"
-            id="image"
-            accept="image/*"
-            onChange={handleImageUpload}
-            multiple
-          />
-          {images.length > 0 && (
-            <div className="image-preview">
-              {images.map((image, index) => (
-                <div key={index} className="image-container">
-                  <span className="image-name">{image.name}</span>
-                  <button type="button" className="delete-button" onClick={() => handleImageDelete(index)}>D</button>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-        <button className="btn-submit" type="submit">Submit Request</button>
-      </form>
+      </div>
     </div>
   );
 }
 
-export default Checkout;
+export default CustomRequest;
