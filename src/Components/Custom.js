@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import { ThemeContext } from "../ThemeContext";  // 新增
-import "./Custom.css"; // Ensure the path is correct
+import "./CSS/Custom.css"; // Ensure the path is correct
 
 function CustomRequest() {
   const [name, setName] = useState("");
