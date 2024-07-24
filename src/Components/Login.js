@@ -1,33 +1,36 @@
-import React, { useState, useContext } from "react";  
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { ThemeContext } from "../ThemeContext";  // 新增
-import "../CSS/Login.css"; // Ensure the path is correct
-import "../styles.css";  // 全局引入 styles.css
+import { AuthContext } from "../Context/AuthContext";
+import "../CSS/Login.css";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { theme } = useContext(ThemeContext);  // 新增
+  const { login } = useContext(AuthContext);
+
+  const validateEmail = (email) => {
+    const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return re.test(String(email).toLowerCase());
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // 新增邮箱格式验证
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!emailPattern.test(email)) {
+    if (!validateEmail(email)) {
       alert("Please enter a valid email address");
       return;
     }
-
     try {
       const res = await axios.post("http://localhost:3001/api/users/login", {
         email,
         password,
       });
+
       if (res.status === 200) {
-        navigate("/home"); // Navigate to Main page on successful login
+        const userData = res.data;
+        login(userData);
+        navigate("/home");
       }
     } catch (err) {
       console.error(err);
@@ -45,12 +48,13 @@ function Login() {
               <div className="form-group">
                 <label htmlFor="email">Email:</label>
                 <input
-                  type="email" // 修改为 type="email"
+                  type="email"
                   className="form-control"
                   id="email"
                   placeholder="Enter Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  required
                 />
               </div>
               <div className="form-group">
@@ -62,6 +66,7 @@ function Login() {
                   placeholder="Enter password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  required
                 />
               </div>
               <button type="submit" className="btn btn-success btn-block">
