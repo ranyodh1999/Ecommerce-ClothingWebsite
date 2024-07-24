@@ -1,15 +1,17 @@
-import React, { useState, useContext } from "react";  
+import React, { useState } from "react";
 import axios from "axios";
-import { ThemeContext } from "../ThemeContext";  // 新增
-import "../CSS/Signup.css"; // Ensure the path is correct
-import "../styles.css";  // 全局引入 styles.css
+import "../CSS/Signup.css";
 
 function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const { theme } = useContext(ThemeContext);  // 新增
+
+  const validateEmail = (email) => {
+    const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return re.test(String(email).toLowerCase());
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,14 +19,10 @@ function Signup() {
       alert("Passwords do not match");
       return;
     }
-
-    // 新增邮箱格式验证
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!emailPattern.test(email)) {
+    if (!validateEmail(email)) {
       alert("Please enter a valid email address");
       return;
     }
-
     try {
       const res = await axios.post("http://localhost:3001/api/users/signup", {
         name,
@@ -59,7 +57,7 @@ function Signup() {
               <div className="form-group">
                 <label htmlFor="email">Email:</label>
                 <input
-                  type="email" // 修改为 type="email"
+                  type="email"
                   className="form-control"
                   id="email"
                   placeholder="Enter Email"
@@ -95,7 +93,7 @@ function Signup() {
             </form>
             <p className="text-center mt-3">
               Already have an account?{" "}
-              <a href="Login" className="custom-link">
+              <a href="login" className="custom-link">
                 Login
               </a>
             </p>
