@@ -5,13 +5,10 @@ import "../CSS/Signup.css";
 function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [dob, setDob] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
-  const validateEmail = (email) => {
-    const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return re.test(String(email).toLowerCase());
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,14 +16,22 @@ function Signup() {
       alert("Passwords do not match");
       return;
     }
-    if (!validateEmail(email)) {
-      alert("Please enter a valid email address");
+    const phonePattern = /^\d{10}$/;
+    if (!phonePattern.test(phone)) {
+      alert("Please enter a valid 10-digit phone number");
+      return;
+    }
+    const dobPattern = /^\d{4}-\d{2}-\d{2}$/;
+    if (!dobPattern.test(dob)) {
+      alert("Please enter a valid date of birth in YYYY-MM-DD format");
       return;
     }
     try {
       const res = await axios.post("http://localhost:3001/api/users/signup", {
         name,
         email,
+        phone,
+        dob,
         password,
       });
       alert(res.data.msg);
@@ -63,6 +68,28 @@ function Signup() {
                   placeholder="Enter Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="phone">Phone:</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="phone"
+                  placeholder="Enter 10-digit Phone Number"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="dob">Date of Birth:</label>
+                <input
+                  type="date"
+                  className="form-control"
+                  id="dob"
+                  placeholder="Enter Date of Birth (YYYY-MM-DD)"
+                  value={dob}
+                  onChange={(e) => setDob(e.target.value)}
                 />
               </div>
               <div className="form-group">

@@ -1,15 +1,14 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { ThemeContext } from "../ThemeContext";  // 新增
-import "./CSS/Custom.css"; // Ensure the path is correct
+import "../CSS/Custom.css";
 
-function CustomRequest() {
+function Custom() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [sku, setSku] = useState("");
   const [photo, setPhoto] = useState(null);
   const [description, setDescription] = useState("");
-  const { theme } = useContext(ThemeContext);  // 新增
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,28 +17,33 @@ function CustomRequest() {
     formData.append("name", name);
     formData.append("email", email);
     formData.append("phone", phone);
+    formData.append("sku", sku);
     formData.append("photo", photo);
     formData.append("description", description);
 
     try {
-      const res = await axios.post("http://localhost:3001/api/users/custom", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const res = await axios.post(
+        "http://localhost:3001/api/custom",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       alert(res.data.msg);
     } catch (err) {
-      console.error(err);
-      alert("Error during custom request submission");
+      console.error("Error during form submission:", err);
+      alert("Error submitting form");
     }
   };
 
   return (
-    <div className="custom-request-page">
-      <div className="CustomRequest">
-        <div className="card-request">
+    <div className="custom-form-page">
+      <div className="CustomForm">
+        <div className="card-custom">
           <div className="card-body">
-            <h2 className="card-title text-center">Custom Request</h2>
+            <h2 className="card-title text-center">Custom Form</h2>
             <form onSubmit={handleSubmit}>
               <div className="form-group">
                 <label htmlFor="name">Name:</label>
@@ -64,7 +68,7 @@ function CustomRequest() {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="phone">Phone Number:</label>
+                <label htmlFor="phone">Phone:</label>
                 <input
                   type="text"
                   className="form-control"
@@ -72,6 +76,17 @@ function CustomRequest() {
                   placeholder="Enter your phone number"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="sku">SKU:</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="sku"
+                  placeholder="Enter SKU"
+                  value={sku}
+                  onChange={(e) => setSku(e.target.value)}
                 />
               </div>
               <div className="form-group">
@@ -88,13 +103,13 @@ function CustomRequest() {
                 <textarea
                   className="form-control"
                   id="description"
-                  placeholder="Enter the description"
+                  placeholder="Enter description"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                ></textarea>
+                />
               </div>
               <button type="submit" className="btn btn-success btn-block">
-                Submit Request
+                Submit
               </button>
             </form>
           </div>
@@ -104,4 +119,4 @@ function CustomRequest() {
   );
 }
 
-export default CustomRequest;
+export default Custom;

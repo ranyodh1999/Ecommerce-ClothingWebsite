@@ -10,17 +10,8 @@ function Login() {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
 
-  const validateEmail = (email) => {
-    const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return re.test(String(email).toLowerCase());
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateEmail(email)) {
-      alert("Please enter a valid email address");
-      return;
-    }
     try {
       const res = await axios.post("http://localhost:3001/api/users/login", {
         email,
@@ -29,6 +20,7 @@ function Login() {
 
       if (res.status === 200) {
         const userData = res.data;
+
         login(userData);
         navigate("/home");
       }

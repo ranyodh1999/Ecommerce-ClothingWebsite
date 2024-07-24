@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
-import { ThemeContext } from "../ThemeContext";  // 新增
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -11,11 +10,9 @@ import {
   faUserCircle,
   faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
-import "../styles.css";  // 全局引入 styles.css
 
 function Navigation() {
-  const { user, logout } = useContext(AuthContext);
-  const { theme, toggleTheme } = useContext(ThemeContext);  // 新增
+  const { currentUser, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -38,11 +35,13 @@ function Navigation() {
         <Navbar.Brand as={Link} to="/home">
           Home
         </Navbar.Brand>
+        <Navbar.Brand as={Link} to="/custom">
+          Custom
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ms-auto">
-            {" "}
-            {user && (
+            {currentUser && (
               <>
                 <Nav.Link as={Link} to="/cart">
                   <FontAwesomeIcon icon={faShoppingCart} size="lg" />
@@ -51,27 +50,21 @@ function Navigation() {
                   title={
                     <span>
                       <FontAwesomeIcon icon={faUserCircle} size="lg" />{" "}
-                      {getInitials(user.name)}
+                      {getInitials(currentUser.name)}
                     </span>
                   }
                   id="profile-nav-dropdown"
                   alignRight
                 >
-                  <NavDropdown.Item as={Link} to="#profile">
+                  <NavDropdown.Item as={Link} to="/profile">
                     Profile
                   </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="#settings">
+                  <NavDropdown.Item as={Link} to="/setting">
                     Settings
                   </NavDropdown.Item>
-                  <NavDropdown.Divider />
                   <NavDropdown.Item onClick={handleLogout}>
                     Logout
                   </NavDropdown.Item>
-                  <NavDropdown title="Settings" id="settings-nav-dropdown" alignRight>
-                    <NavDropdown.Item onClick={toggleTheme}>  {/* 新增 */}
-                      {theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}  {/* 新增 */}
-                    </NavDropdown.Item>  {/* 新增 */}
-                  </NavDropdown>
                 </NavDropdown>
               </>
             )}
