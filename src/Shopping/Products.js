@@ -22,6 +22,7 @@ export const Products = [
     price: 19.99,
     productImage: imgSrc1,
     detailPage: "/detail-page1",
+    limit: 4,
   },
   {
     id: 2,
@@ -29,6 +30,7 @@ export const Products = [
     price: 19.99,
     productImage: imgSrc2,
     detailPage: "/detail-page2",
+    limit: 4,
   },
   {
     id: 3,
@@ -36,6 +38,7 @@ export const Products = [
     price: 19.99,
     productImage: imgSrc3,
     detailPage: "/detail-page3",
+    limit: 4,
   },
   {
     id: 4,
@@ -43,6 +46,7 @@ export const Products = [
     price: 19.99,
     productImage: imgSrc4,
     detailPage: "/detail-page4",
+    limit: 4,
   },
   {
     id: 5,
@@ -50,6 +54,7 @@ export const Products = [
     price: 19.99,
     productImage: imgSrc5,
     detailPage: "/detail-page5",
+    limit: 4,
   },
   {
     id: 6,
@@ -57,6 +62,7 @@ export const Products = [
     price: 30.0,
     productImage: imgSrc6,
     detailPage: "/detail-page6",
+    limit: 4,
   },
   {
     id: 7,
@@ -64,6 +70,7 @@ export const Products = [
     price: 30.0,
     productImage: imgSrc7,
     detailPage: "/detail-page7",
+    limit: 4,
   },
   {
     id: 8,
@@ -71,6 +78,7 @@ export const Products = [
     price: 30.0,
     productImage: imgSrc8,
     detailPage: "/detail-page8",
+    limit: 4,
   },
   {
     id: 9,
@@ -78,6 +86,7 @@ export const Products = [
     price: 30.0,
     productImage: imgSrc9,
     detailPage: "/detail-page9",
+    limit: 4,
   },
   {
     id: 10,
@@ -85,6 +94,7 @@ export const Products = [
     price: 19.99,
     productImage: imgSrc10,
     detailPage: "/detail-page10",
+    limit: 4,
   },
   {
     id: 11,
@@ -92,6 +102,7 @@ export const Products = [
     price: 40.0,
     productImage: imgSrc11,
     detailPage: "/detail-page11",
+    limit: 4,
   },
   {
     id: 12,
@@ -99,6 +110,7 @@ export const Products = [
     price: 40.0,
     productImage: imgSrc12,
     detailPage: "/detail-page12",
+    limit: 4,
   },
   {
     id: 13,
@@ -106,6 +118,7 @@ export const Products = [
     price: 40.0,
     productImage: imgSrc13,
     detailPage: "/detail-page13",
+    limit: 4,
   },
   {
     id: 14,
@@ -113,6 +126,7 @@ export const Products = [
     price: 40.0,
     productImage: imgSrc14,
     detailPage: "/detail-page14",
+    limit: 4,
   },
   {
     id: 15,
@@ -120,6 +134,7 @@ export const Products = [
     price: 40.0,
     productImage: imgSrc15,
     detailPage: "/detail-page15",
+    limit: 4,
   },
   {
     id: 16,
@@ -127,6 +142,8 @@ export const Products = [
     price: 40.0,
     productImage: imgSrc16,
     detailPage: "/detail-page16",
+    limit: 4,
   },
 ];
+
 export default Products;
