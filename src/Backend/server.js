@@ -23,8 +23,9 @@ mongoose
 
 app.use("/api/users", require("./routes/users"));
 app.use("/api/checkout", require("./routes/orders"));
+app.use("/api/custom", require("./routes/customs"));
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log("Server is running on port ${PORT}");
 });
