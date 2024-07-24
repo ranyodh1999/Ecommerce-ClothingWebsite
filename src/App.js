@@ -7,8 +7,7 @@ import {
 } from "react-router-dom";
 import { ShopContextProvider } from "./Context/shopContext";
 import { AuthProvider } from "./Context/AuthContext";
-import { ThemeProvider } from "./ThemeContext";
-import "./styles.css";  // 全局引入 styles.css
+import ProtectedRoute from "./ProtectedRoute";
 
 import Cart from "./Cart/Cart";
 import Navigation from "./Components/Navigation";
@@ -32,36 +31,193 @@ import Detail16 from "./detail-page/Detail16";
 import Footer from "./Components/Footer";
 import Signup from "./Components/Signup";
 import Login from "./Components/Login";
+import Checkout from "./Components/Checkout";
+import Profile from "./Components/Profile";
+
+import Custom from "./Components/Custom";
 
 function App() {
   const location = useLocation();
   const hideHeaderFooter =
-    location.pathname === "/signup" || location.pathname === "/login"; // Corrected path to '/login'
+    location.pathname === "/" || location.pathname === "/login";
 
   return (
     <>
       {!hideHeaderFooter && <Navigation />}
       <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route path="/detail-page1" element={<Detail1 />} />
-        <Route path="/detail-page2" element={<Detail2 />} />
-        <Route path="/detail-page3" element={<Detail3 />} />
-        <Route path="/detail-page4" element={<Detail4 />} />
-        <Route path="/detail-page5" element={<Detail5 />} />
-        <Route path="/detail-page6" element={<Detail6 />} />
-        <Route path="/detail-page7" element={<Detail7 />} />
-        <Route path="/detail-page8" element={<Detail8 />} />
-        <Route path="/detail-page9" element={<Detail9 />} />
-        <Route path="/detail-page10" element={<Detail10 />} />
-        <Route path="/detail-page11" element={<Detail11 />} />
-        <Route path="/detail-page12" element={<Detail12 />} />
-        <Route path="/detail-page13" element={<Detail13 />} />
-        <Route path="/detail-page14" element={<Detail14 />} />
-        <Route path="/detail-page15" element={<Detail15 />} />
-        <Route path="/detail-page16" element={<Detail16 />} />
-        <Route path="/Cart" element={<Cart />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/" element={<Signup />} />
-        <Route path="/login" element={<Login />} />{" "}
+
+        <Route
+          path="/home"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/checkout"
+          element={
+            <ProtectedRoute>
+              <Checkout />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/cart"
+          element={
+            <ProtectedRoute>
+              <Cart />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/custom"
+          element={
+            <ProtectedRoute>
+              <Custom />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/detail-page1"
+          element={
+            <ProtectedRoute>
+              <Detail1 />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/detail-page2"
+          element={
+            <ProtectedRoute>
+              <Detail2 />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/detail-page3"
+          element={
+            <ProtectedRoute>
+              <Detail3 />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/detail-page4"
+          element={
+            <ProtectedRoute>
+              <Detail4 />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/detail-page5"
+          element={
+            <ProtectedRoute>
+              <Detail5 />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/detail-page6"
+          element={
+            <ProtectedRoute>
+              <Detail6 />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/detail-page7"
+          element={
+            <ProtectedRoute>
+              <Detail7 />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/detail-page8"
+          element={
+            <ProtectedRoute>
+              <Detail8 />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/detail-page9"
+          element={
+            <ProtectedRoute>
+              <Detail9 />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/detail-page10"
+          element={
+            <ProtectedRoute>
+              <Detail10 />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/detail-page11"
+          element={
+            <ProtectedRoute>
+              <Detail11 />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/detail-page12"
+          element={
+            <ProtectedRoute>
+              <Detail12 />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/detail-page13"
+          element={
+            <ProtectedRoute>
+              <Detail13 />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/detail-page14"
+          element={
+            <ProtectedRoute>
+              <Detail14 />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/detail-page15"
+          element={
+            <ProtectedRoute>
+              <Detail15 />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/detail-page16"
+          element={
+            <ProtectedRoute>
+              <Detail16 />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
       {!hideHeaderFooter && <Footer />}
     </>
@@ -72,11 +228,9 @@ function AppWrapper() {
   return (
     <AuthProvider>
       <ShopContextProvider>
-        <ThemeProvider>
-          <Router>
-            <App />
-          </Router>
-        </ThemeProvider>
+        <Router>
+          <App />
+        </Router>
       </ShopContextProvider>
     </AuthProvider>
   );
