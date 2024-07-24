@@ -1,12 +1,10 @@
 .footer {
-margin-top: 50px;
+margin-top: 140px;
   background-color: black;
 
   text-align: center;
-  padding: 20px 0;
-  position: flex;
   width: 100%;
-  bottom: 0;
+  bottom: 0PX;
   font-family: Arial, sans-serif;
 }
 

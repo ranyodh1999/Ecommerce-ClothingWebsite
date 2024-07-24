@@ -17,7 +17,7 @@ function Navigation() {
 
   const handleLogout = () => {
     logout();
-    navigate("/Login");
+    navigate("/login");
   };
 
   const getInitials = (name) => {

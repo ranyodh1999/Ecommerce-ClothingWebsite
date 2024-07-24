@@ -32,7 +32,6 @@ import Footer from "./Components/Footer";
 import Signup from "./Components/Signup";
 import Login from "./Components/Login";
 import Checkout from "./Components/Checkout";
-import Profile from "./Components/Profile";
 
 import Custom from "./Components/Custom";
 
@@ -61,14 +60,6 @@ function App() {
           element={
             <ProtectedRoute>
               <Checkout />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute>
-              <Profile />
             </ProtectedRoute>
           }
         />

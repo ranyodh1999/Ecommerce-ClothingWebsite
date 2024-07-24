@@ -209,7 +209,7 @@ function Checkout() {
               </div>
               <p>Total Amount: ${totalAmount}</p>
               <button type="submit" className="btn btn-success btn-block">
-                Checkout
+                Submit
               </button>
             </form>
           </div>
