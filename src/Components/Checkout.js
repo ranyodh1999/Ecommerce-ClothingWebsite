@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../CSS/Checkout.css";
 
 function Checkout() {
   const location = useLocation();
+  const navigate = useNavigate();
+
   const { totalAmount, productIds } = location.state || {};
 
   const [name, setName] = useState("");
@@ -82,6 +84,7 @@ function Checkout() {
         totalAmount,
       });
       alert(res.data.msg);
+      navigate("/home");
     } catch (err) {
       console.error(err);
       alert("Error during checkout");
@@ -118,6 +121,7 @@ function Checkout() {
                   onChange={(e) => setContact(e.target.value)}
                 />
               </div>
+
               <div className="form-group">
                 <label htmlFor="address">Address:</label>
                 <input
@@ -129,6 +133,7 @@ function Checkout() {
                   onChange={(e) => setAddress(e.target.value)}
                 />
               </div>
+
               <div className="form-group">
                 <label htmlFor="city">City:</label>
                 <input
@@ -140,6 +145,7 @@ function Checkout() {
                   onChange={(e) => setCity(e.target.value)}
                 />
               </div>
+
               <div className="form-group">
                 <label htmlFor="province">Province:</label>
                 <input
@@ -151,6 +157,7 @@ function Checkout() {
                   onChange={(e) => setProvince(e.target.value)}
                 />
               </div>
+
               <div className="form-group">
                 <label htmlFor="zipCode">Zip Code:</label>
                 <input
@@ -162,6 +169,7 @@ function Checkout() {
                   onChange={(e) => setZipCode(e.target.value)}
                 />
               </div>
+
               <div className="form-group">
                 <label htmlFor="cardNumber">Card Number:</label>
                 <input
@@ -173,6 +181,7 @@ function Checkout() {
                   onChange={(e) => setCardNumber(e.target.value)}
                 />
               </div>
+
               <div className="form-group">
                 <label htmlFor="expiryDate">Expiry Date:</label>
                 <input
@@ -184,6 +193,7 @@ function Checkout() {
                   onChange={(e) => setExpiryDate(e.target.value)}
                 />
               </div>
+
               <div className="form-group">
                 <label htmlFor="cvv">CVV:</label>
                 <input
@@ -195,6 +205,7 @@ function Checkout() {
                   onChange={(e) => setCvv(e.target.value)}
                 />
               </div>
+
               <p>Total Amount: ${totalAmount}</p>
               <button type="submit" className="btn btn-success btn-block">
                 Submit
