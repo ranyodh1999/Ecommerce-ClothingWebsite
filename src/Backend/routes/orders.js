@@ -6,7 +6,6 @@ router.post("/", async (req, res) => {
   const {
     productIds,
     name,
-    email,
     contact,
     address,
     city,
@@ -22,7 +21,6 @@ router.post("/", async (req, res) => {
     const newOrder = new Order({
       productIds,
       name,
-      email,
       contact,
       address,
       city,
