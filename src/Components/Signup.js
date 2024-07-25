@@ -18,7 +18,7 @@ function Signup() {
     }
     const phonePattern = /^\d{10}$/;
     if (!phonePattern.test(phone)) {
-      alert("Please enter a valid 10-digit phone number");
+      alert("Enter your contact number");
       return;
     }
     const dobPattern = /^\d{4}-\d{2}-\d{2}$/;

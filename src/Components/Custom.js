@@ -9,7 +9,6 @@ function Custom() {
   const [sku, setSku] = useState("");
   const [photo, setPhoto] = useState(null);
   const [description, setDescription] = useState("");
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -111,6 +110,11 @@ function Custom() {
               <button type="submit" className="btn btn-success btn-block">
                 Submit
               </button>
+              <p className="NOTE">
+                Note: You can submit the details for your custom shirt. A member
+                of our team will be in touch with you shortly with the total
+                price for your custom t-shirt.
+              </p>
             </form>
           </div>
         </div>

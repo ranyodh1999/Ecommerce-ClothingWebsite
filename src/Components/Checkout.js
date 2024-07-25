@@ -8,7 +8,6 @@ function Checkout() {
   const { totalAmount, productIds } = location.state || {};
 
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -72,7 +71,6 @@ function Checkout() {
       const res = await axios.post("http://localhost:3001/api/checkout", {
         productIds,
         name,
-        email,
         contact,
         address,
         city,
@@ -108,17 +106,7 @@ function Checkout() {
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
-              <div className="form-group">
-                <label htmlFor="email">Email:</label>
-                <input
-                  type="email"
-                  className="form-control"
-                  id="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
+
               <div className="form-group">
                 <label htmlFor="contact">Contact:</label>
                 <input
