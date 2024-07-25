@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import { ShopContextProvider } from "./Context/shopContext";
 import { AuthProvider } from "./Context/AuthContext";
+import { ProfileProvider } from "./Context/ProfileContext";
 import ProtectedRoute from "./ProtectedRoute";
 
 import Cart from "./Cart/Cart";
@@ -32,7 +33,7 @@ import Footer from "./Components/Footer";
 import Signup from "./Components/Signup";
 import Login from "./Components/Login";
 import Checkout from "./Components/Checkout";
-
+import Profile from "./Components/Profile";
 import Custom from "./Components/Custom";
 
 function App() {
@@ -72,6 +73,16 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+
         <Route
           path="/custom"
           element={
@@ -219,9 +230,11 @@ function AppWrapper() {
   return (
     <AuthProvider>
       <ShopContextProvider>
-        <Router>
-          <App />
-        </Router>
+        <ProfileProvider>
+          <Router>
+            <App />
+          </Router>
+        </ProfileProvider>
       </ShopContextProvider>
     </AuthProvider>
   );
