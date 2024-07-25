@@ -4,7 +4,6 @@ import "../CSS/Custom.css";
 
 function Custom() {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [sku, setSku] = useState("");
   const [photo, setPhoto] = useState(null);
@@ -14,7 +13,6 @@ function Custom() {
 
     const formData = new FormData();
     formData.append("name", name);
-    formData.append("email", email);
     formData.append("phone", phone);
     formData.append("sku", sku);
     formData.append("photo", photo);
@@ -55,17 +53,7 @@ function Custom() {
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
-              <div className="form-group">
-                <label htmlFor="email">Email:</label>
-                <input
-                  type="email"
-                  className="form-control"
-                  id="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
+
               <div className="form-group">
                 <label htmlFor="phone">Phone:</label>
                 <input
