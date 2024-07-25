@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { AuthContext } from "../Context/AuthContext";
+import { ProfileContext } from "../Context/ProfileContext";
 import {
   MDBCol,
   MDBContainer,
@@ -10,7 +10,7 @@ import {
 } from "mdb-react-ui-kit";
 
 function Profile() {
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(ProfileContext);
 
   if (!user) {
     return <div>Log in to see your profile.</div>;
@@ -46,6 +46,25 @@ function Profile() {
                   </MDBCol>
                 </MDBRow>
                 <hr />
+                <MDBRow>
+                  <MDBCol sm="3">
+                    <MDBCardText>Phone</MDBCardText>
+                  </MDBCol>
+                  <MDBCol sm="9">
+                    <MDBCardText className="text-muted">
+                      {user.phone}
+                    </MDBCardText>
+                  </MDBCol>
+                </MDBRow>
+                <hr />
+                <MDBRow>
+                  <MDBCol sm="3">
+                    <MDBCardText>Date of Birth</MDBCardText>
+                  </MDBCol>
+                  <MDBCol sm="9">
+                    <MDBCardText className="text-muted">{user.dob}</MDBCardText>
+                  </MDBCol>
+                </MDBRow>
               </MDBCardBody>
             </MDBCard>
           </MDBCol>
