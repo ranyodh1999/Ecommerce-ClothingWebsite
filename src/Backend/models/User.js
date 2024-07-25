@@ -15,6 +15,14 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  phone: {
+    type: String,
+    required: true,
+  },
+  dob: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("User", UserSchema);
