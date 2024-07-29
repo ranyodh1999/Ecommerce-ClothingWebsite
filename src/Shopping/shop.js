@@ -1,20 +1,44 @@
-import React from "react";
-import Products from "./Products";
-import Product from "./Product";
-import "./shop.css";
+import React, { useContext } from "react";
+import { Container, Row, Col, Image } from "react-bootstrap";
+import { ShopContext } from "../Context/shopContext";
+import { Products } from "./Products";
+import { Link } from "react-router-dom";
+import "../CSS/App.css";
 
-export const Shop = () => {
+const Shop = () => {
+  const { addToCart, cartItems } = useContext(ShopContext);
+
   return (
-    <div className="shop">
-      <div className="shopTitle">
-        <h1>PedroTech Shop</h1>
-      </div>
-
-      <div className="products">
+    <Container>
+      <Row>
         {Products.map((product) => (
-          <Product data={product} />
+          <Col xs={6} md={3} key={product.id}>
+            <Link to={product.detailPage} className="image-link">
+              <div className="image-container">
+                <Image
+                  src={product.productImage}
+                  width={300}
+                  height={325}
+                  className="image"
+                  alt={product.productName}
+                />
+                <p>
+                  {product.productName} <br /> Price: ${product.price}
+                </p>
+              </div>
+            </Link>
+            <button
+              className="addToCartBttn"
+              onClick={() => addToCart(product.id)}
+            >
+              Add To Cart{" "}
+              {cartItems[product.id] > 0 && <> ({cartItems[product.id]})</>}
+            </button>
+          </Col>
         ))}
-      </div>
-    </div>
+      </Row>
+    </Container>
   );
 };
+
+export default Shop;

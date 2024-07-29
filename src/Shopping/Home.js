@@ -6,6 +6,7 @@ import { Products } from "./Products";
 import "../CSS/App.css";
 
 import headerImage from "../Asset/Header.jpg";
+
 const Home = () => {
   const { addToCart, cartItems } = useContext(ShopContext);
 
