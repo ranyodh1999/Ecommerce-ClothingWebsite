@@ -43,6 +43,10 @@ const OrderSchema = new Schema({
     type: String,
     required: true,
   },
+  totalAmount: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Order", OrderSchema);
