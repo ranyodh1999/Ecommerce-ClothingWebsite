@@ -17,7 +17,7 @@ function Navigation() {
 
   const handleLogout = () => {
     logout();
-    navigate("/login");
+    navigate("/");
   };
 
   const getInitials = (name) => {
@@ -34,6 +34,9 @@ function Navigation() {
       <Container>
         <Navbar.Brand as={Link} to="/home">
           Home
+        </Navbar.Brand>
+        <Navbar.Brand as={Link} to="/about">
+          About
         </Navbar.Brand>
         <Navbar.Brand as={Link} to="/custom">
           Custom
@@ -54,14 +57,8 @@ function Navigation() {
                     </span>
                   }
                   id="profile-nav-dropdown"
-                  alignRight
+                  alignright="true"
                 >
-                  <NavDropdown.Item as={Link} to="/profile">
-                    Profile
-                  </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/setting">
-                    Settings
-                  </NavDropdown.Item>
                   <NavDropdown.Item onClick={handleLogout}>
                     Logout
                   </NavDropdown.Item>
