@@ -28,8 +28,8 @@ export default function NextPage() {
               >
                 <img
                   style={{
-                    maxWidth: "100%",
-                    maxHeight: "100vh",
+                    maxWidth: "50vh",
+                    maxHeight: "60vh",
                     margin: "auto",
                   }}
                   className="rounded-4 fit"
