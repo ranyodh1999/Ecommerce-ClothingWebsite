@@ -1,9 +1,13 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import axios from "axios";
 import "../CSS/Custom.css";
 
 function Custom() {
   const [name, setName] = useState("");
+  const navigate = useNavigate();
+
   const [phone, setPhone] = useState("");
   const [sku, setSku] = useState("");
   const [photo, setPhoto] = useState(null);
@@ -29,6 +33,7 @@ function Custom() {
         }
       );
       alert(res.data.msg);
+      navigate("/home");
     } catch (err) {
       console.error("Error during form submission:", err);
       alert("Error submitting form");
