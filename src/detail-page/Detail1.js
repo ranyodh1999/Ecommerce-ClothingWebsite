@@ -21,8 +21,8 @@ export default function NextPage() {
             <div className="border rounded-4 mb-3 d-flex justify-content-center">
               <img
                 style={{
-                  maxWidth: "100%",
-                  maxHeight: "100vh",
+                  maxWidth: "50vh",
+                  maxHeight: "60vh",
                   margin: "auto",
                 }}
                 className="rounded-4 fit"
