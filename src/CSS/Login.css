@@ -1,11 +1,11 @@
-
 body {
   margin: 0;
   font-family: Arial, sans-serif;
   background-color: #f8f9fa;
 }
 
-.login-page {
+.login-page 
+{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,7 +14,8 @@ body {
 
 }
 
-.Login {
+.Login 
+{
   width: 100%;
   max-width: 500px;
   margin: 20px;
@@ -24,14 +25,17 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.card-login {
+.card-login 
+{
   padding: 20px;
 }
 
-.card-body {
+.card-body 
+{
   padding: 20px;
 }
 
-.form-group {
+.form-group 
+{
   margin-bottom: 15px;
 }
