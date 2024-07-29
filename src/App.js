@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 import { ShopContextProvider } from "./Context/shopContext";
 import { AuthProvider } from "./Context/AuthContext";
-import { ProfileProvider } from "./Context/ProfileContext";
 import ProtectedRoute from "./ProtectedRoute";
 
 import Cart from "./Cart/Cart";
@@ -33,26 +32,34 @@ import Footer from "./Components/Footer";
 import Signup from "./Components/Signup";
 import Login from "./Components/Login";
 import Checkout from "./Components/Checkout";
-import Profile from "./Components/Profile";
 import Custom from "./Components/Custom";
+import About from "./Components/About";
 
 function App() {
   const location = useLocation();
   const hideHeaderFooter =
-    location.pathname === "/" || location.pathname === "/login";
+    location.pathname === "/signup" || location.pathname === "/";
 
   return (
     <>
       {!hideHeaderFooter && <Navigation />}
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/" element={<Signup />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
 
         <Route
           path="/home"
           element={
             <ProtectedRoute>
               <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <ProtectedRoute>
+              <About />
             </ProtectedRoute>
           }
         />
@@ -70,15 +77,6 @@ function App() {
           element={
             <ProtectedRoute>
               <Cart />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute>
-              <Profile />
             </ProtectedRoute>
           }
         />
@@ -230,11 +228,9 @@ function AppWrapper() {
   return (
     <AuthProvider>
       <ShopContextProvider>
-        <ProfileProvider>
-          <Router>
-            <App />
-          </Router>
-        </ProfileProvider>
+        <Router>
+          <App />
+        </Router>
       </ShopContextProvider>
     </AuthProvider>
   );
