@@ -67,7 +67,7 @@ function Login() {
             </form>
             <p className="text-center mt-3">
               Don't have an account?{" "}
-              <a href="/" className="custom-link">
+              <a href="/signup" className="custom-link">
                 Sign Up
               </a>
             </p>
