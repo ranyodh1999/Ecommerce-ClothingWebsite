@@ -40,6 +40,19 @@ function Checkout() {
       return false;
     }
 
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth() + 1;
+    const currentYear = currentDate.getFullYear() % 100;
+    const [enteredMonth, enteredYear] = expiryDate.split("/").map(Number);
+
+    if (
+      enteredYear < currentYear ||
+      (enteredYear === currentYear && enteredMonth < currentMonth)
+    ) {
+      alert("Expiry date cannot be in the past.");
+      return false;
+    }
+
     if (address.trim() === "") {
       alert("Address cannot be empty.");
       return false;
