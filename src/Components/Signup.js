@@ -18,7 +18,7 @@ function Signup() {
     }
     const phonePattern = /^\d{10}$/;
     if (!phonePattern.test(phone)) {
-      alert("Enter your contact number");
+      alert("Enter a valid 10-digit phone number");
       return;
     }
     const dobPattern = /^\d{4}-\d{2}-\d{2}$/;
@@ -26,6 +26,17 @@ function Signup() {
       alert("Please enter a valid date of birth in YYYY-MM-DD format");
       return;
     }
+
+    const currentDate = new Date();
+    const selectedDate = new Date(dob);
+    const minAgeDate = new Date();
+    minAgeDate.setFullYear(currentDate.getFullYear() - 15);
+
+    if (selectedDate > minAgeDate) {
+      alert("You must be at least 15 years old to sign up.");
+      return;
+    }
+
     try {
       const res = await axios.post("http://localhost:3001/api/users/signup", {
         name,
@@ -40,6 +51,10 @@ function Signup() {
       alert("Error signing up");
     }
   };
+
+  const maxDate = new Date();
+  maxDate.setFullYear(maxDate.getFullYear() - 15);
+  const maxDateString = maxDate.toISOString().split("T")[0];
 
   return (
     <div className="signup-page">
@@ -89,6 +104,7 @@ function Signup() {
                   id="dob"
                   placeholder="Enter Date of Birth (YYYY-MM-DD)"
                   value={dob}
+                  max={maxDateString}
                   onChange={(e) => setDob(e.target.value)}
                 />
               </div>
