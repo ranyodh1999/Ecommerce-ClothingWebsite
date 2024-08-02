@@ -98,7 +98,7 @@ const productData = [
   },
   {
     id: 11,
-    productName: "Men's Collared T-Shirt(Dark Blue)",
+    productName: "Men's Collar T-Shirt(Dark Blue)",
     price: 40.0,
     productImage: imgSrc11,
     detailPage: "/detail-page11",
@@ -106,7 +106,7 @@ const productData = [
   },
   {
     id: 12,
-    productName: "Men's Collared T-Shirt(Grey)",
+    productName: "Men's Collar T-Shirt(Grey)",
     price: 40.0,
     productImage: imgSrc12,
     detailPage: "/detail-page12",
@@ -114,7 +114,7 @@ const productData = [
   },
   {
     id: 13,
-    productName: "Men's Collared T-Shirt(White)",
+    productName: "Men's Collar T-Shirt(White)",
     price: 40.0,
     productImage: imgSrc13,
     detailPage: "/detail-page13",
@@ -122,7 +122,7 @@ const productData = [
   },
   {
     id: 14,
-    productName: "Men's Collared T-Shirt(Sky Blue)",
+    productName: "Men's Collar T-Shirt(Sky Blue)",
     price: 40.0,
     productImage: imgSrc14,
     detailPage: "/detail-page14",
@@ -130,7 +130,7 @@ const productData = [
   },
   {
     id: 15,
-    productName: "Men's Collared T-Shirt(Dark Grey)",
+    productName: "Men's Collar T-Shirt(Dark Grey)",
     price: 40.0,
     productImage: imgSrc15,
     detailPage: "/detail-page15",
@@ -138,7 +138,7 @@ const productData = [
   },
   {
     id: 16,
-    productName: "Men's Collared T-Shirt(Red)",
+    productName: "Men's Collar T-Shirt(Red)",
     price: 40.0,
     productImage: imgSrc16,
     detailPage: "/detail-page16",
