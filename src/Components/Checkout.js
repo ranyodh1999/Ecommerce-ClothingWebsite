@@ -21,6 +21,8 @@ function Checkout() {
 
   const validateForm = () => {
     const cvvPattern = /^\d{3}$/;
+    const contactPattern = /^\d{10}$/;
+
     const cardNumberPattern = /^\d{16}$/;
     const expiryDatePattern = /^(0[1-9]|1[0-2])\/\d{2}$/;
     const zipCodePattern = /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/;
@@ -29,7 +31,10 @@ function Checkout() {
       alert("Invalid CVV. It should be 3 digits.");
       return false;
     }
-
+    if (!contactPattern.test(contact)) {
+      alert("Invalid phone number. It should be 10 digits.");
+      return false;
+    }
     if (!cardNumberPattern.test(cardNumber)) {
       alert("Invalid card number. It should be 16 digits.");
       return false;

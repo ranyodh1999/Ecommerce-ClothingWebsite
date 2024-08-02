@@ -1,19 +1,57 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import axios from "axios";
 import "../CSS/Custom.css";
 
 function Custom() {
   const [name, setName] = useState("");
-  const navigate = useNavigate();
-
   const [phone, setPhone] = useState("");
   const [sku, setSku] = useState("");
   const [photo, setPhoto] = useState(null);
   const [description, setDescription] = useState("");
+  const navigate = useNavigate();
+
+  const validateForm = () => {
+    const contactPattern = /^\d{10}$/;
+    const allowedImageTypes = ["image/jpeg", "image/png", "image/gif"];
+
+    if (!name) {
+      alert("Name is required.");
+      return false;
+    }
+
+    if (!contactPattern.test(phone)) {
+      alert("Invalid phone number. It should be 10 digits.");
+      return false;
+    }
+
+    if (!sku) {
+      alert("SKU is required.");
+      return false;
+    }
+
+    if (!photo) {
+      alert("Photo is required.");
+      return false;
+    }
+
+    if (!allowedImageTypes.includes(photo.type)) {
+      alert("Invalid photo type. Only JPEG, PNG, and GIF are allowed.");
+      return false;
+    }
+
+    if (!description) {
+      alert("Description is required.");
+      return false;
+    }
+
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateForm()) return;
 
     const formData = new FormData();
     formData.append("name", name);
@@ -87,6 +125,7 @@ function Custom() {
                   type="file"
                   className="form-control"
                   id="photo"
+                  accept="image/jpeg, image/png, image/gif"
                   onChange={(e) => setPhoto(e.target.files[0])}
                 />
               </div>
